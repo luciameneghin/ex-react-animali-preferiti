@@ -14,27 +14,39 @@
 
     function Animali() {
       const [show, setShow] = useState(false);
-      const animals = ['Cane', 'Gatto', 'Pappagallo', 'Cavallo', 'Panda'];
+      const animalsChoices = ['Cane', 'Gatto', 'Pappagallo', 'Cavallo', 'Panda'];
+      const [animals, setAnimals] = useState([]);
+
+      const aggiungiAnimale = () => {
+        const randomIndex = parseInt(Math.random() * animalsChoices.length);
+        const animaleCasuale = animalsChoices[randomIndex];
+        setAnimals(prev => [...prev, animaleCasuale]);
+      };
 
       return (
-        <details>
-          <summary>Animali</summary>
-          <div className='contenitore-animali'>
-            {!show &&
-              <button onClick={() => setShow(true)}>Open</button>}
-            {show && (
-              <>
-                <h3>Lista animali</h3>
-                <ul>
-                  {animals.map((animale, index) => (
-                    <li key={index}>{animale}</li>
-                  ))}
-                </ul>
-                <button onClick={() => setShow(false)}>Close</button>
-              </>
-            )}
+        <main>
+          <div>
+            <button onClick={aggiungiAnimale}>Add Animal</button>
           </div>
-        </details>
+          <details>
+            <summary>Animali</summary>
+            <div className='contenitore-animali'>
+              {!show &&
+                <button onClick={() => setShow(true)}>Open</button>}
+              {show && (
+                <>
+                  <h3>Lista animali</h3>
+                  <ul>
+                    {animals.map((animale, index) => (
+                      <li key={index}>{animale}</li>
+                    ))}
+                  </ul>
+                  <button onClick={() => setShow(false)}>Close</button>
+                </>
+              )}
+            </div>
+          </details>
+        </main>
       );
     }
 
